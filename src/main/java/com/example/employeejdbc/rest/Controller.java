@@ -27,6 +27,7 @@ public class Controller {
     }
     @GetMapping("/employee/{id}")
     public ResponseEntity<EmployeeDto> getEmployee(@PathVariable final long id){
+        System.out.println("tu wlazlo");
         return ResponseEntity.ok(employeeService.getEmployee(id));
     }
     @DeleteMapping("/employee/{id}")

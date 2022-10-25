@@ -22,9 +22,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         return List.of(employee1,employee2);
     }
 
+
     @Override
     public EmployeeDto getEmployee(long id) {
-        return null;
+        Employee employeeById = employeeRepository.findEmployeeById(id);
+        EmployeeDto employeeDto = employeeMapper.mapToEmployeeDto(employeeById);
+        return employeeDto;
     }
 
     @Override
@@ -35,11 +38,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void updateEmployee(EmployeeDto employeeDto) {
+        employeeRepository.updateEmployee(employeeDto);
 
     }
 
     @Override
     public void deleteEmployee(long id) {
-
+        employeeRepository.deleteEmployee(id);
     }
 }
