@@ -16,10 +16,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
 
-    public List<EmployeeDto> getEmployees(){
+    public List<EmployeeDto> getEmployees() {
         EmployeeDto employee1 = EmployeeDto.builder().employeeId(1).firstName("jan").lastName("koalski").departmentId(1).jobTitle("jdj").build();
         EmployeeDto employee2 = EmployeeDto.builder().employeeId(2).firstName("piotr").lastName("nowak").departmentId(1).jobTitle("jdj").build();
-        return List.of(employee1,employee2);
+        return List.of(employee1, employee2);
     }
 
 
