@@ -37,4 +37,11 @@ public class EmployeeRepository {
         final String insertSql = "DELETE FROM EMPLOYEE WHERE employee_id = ?";
         jdbcTemplate.update(insertSql, id);
     }
+
+    public List<EmployeeDto> getEmployees() {
+        final String insertSql = "SELECT employee_id, first_name, last_name, department_id, job_title FROM public.employee;";
+        List<EmployeeDto> employee = jdbcTemplate.query(insertSql, employeeRowMapper);
+        return employee;
+
+    }
 }
