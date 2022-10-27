@@ -8,10 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Component
-public class EmployeeRowMapper implements RowMapper {
+public class EmployeeRowMapper implements RowMapper<Employee> {
 
     @Override
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
         Employee employee = new Employee();
         employee.setEmployeeId(rs.getLong("employee_id"));
         employee.setFirstName(rs.getString("first_name"));

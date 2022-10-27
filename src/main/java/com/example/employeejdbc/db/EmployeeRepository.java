@@ -24,13 +24,14 @@ public class EmployeeRepository {
 
     public Employee findEmployeeById(Long id) {
         final String insertSql = "SELECT * FROM EMPLOYEE WHERE employee_id = ?";
-        List<Employee> employee = jdbcTemplate.query(insertSql, employeeRowMapper, id);
-        return employee.get(0);
+        return jdbcTemplate.queryForObject(insertSql, employeeRowMapper, id);
+        // TODO: 27.10.2022 jesli nie znajdzie find not
     }
 
-    public void updateEmployee(EmployeeDto employeeDto) {
+    public void updateEmployee(Employee employee) {
         final String updateQuery = "UPDATE EMPLOYEE SET FIRST_NAME = ?, LAST_NAME = ?,DEPARTMENT_ID = ?, JOB_TITLE = ?  WHERE EMPLOYEE_ID = ?";
-        jdbcTemplate.update(updateQuery, employeeDto.getFirstName(), employeeDto.getLastName(), employeeDto.getDepartmentId(), employeeDto.getJobTitle(), employeeDto.getEmployeeId());
+        jdbcTemplate.update(updateQuery, employee.getFirstName(), employee.getLastName(), employee.getDepartmentId(), employee.getJobTitle(), employee.getEmployeeId());
+        // TODO: 27.10.2022 jesli u 0 reco
     }
 
     public void deleteEmployee(Long id) {
@@ -38,9 +39,10 @@ public class EmployeeRepository {
         jdbcTemplate.update(insertSql, id);
     }
 
-    public List<EmployeeDto> getEmployees() {
+    public List<Employee> getEmployees() {
         final String insertSql = "SELECT employee_id, first_name, last_name, department_id, job_title FROM public.employee;";
-        List<EmployeeDto> employee = jdbcTemplate.query(insertSql, employeeRowMapper);
+        List<Employee> employee = jdbcTemplate.query(insertSql, employeeRowMapper);
+
         return employee;
 
     }

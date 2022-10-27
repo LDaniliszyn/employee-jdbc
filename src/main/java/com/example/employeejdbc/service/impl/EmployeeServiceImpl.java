@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,10 +18,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeMapper employeeMapper;
 
     public List<EmployeeDto> getEmployees() {
-       // EmployeeDto employee1 = EmployeeDto.builder().employeeId(1).firstName("jan").lastName("koalski").departmentId(1).jobTitle("jdj").build();
-        //EmployeeDto employee2 = EmployeeDto.builder().employeeId(2).firstName("piotr").lastName("nowak").departmentId(1).jobTitle("jdj").build();
-        List<EmployeeDto> employees = employeeRepository.getEmployees();
-        return employees;
+        return employeeRepository.getEmployees().stream()
+                .map(employeeMapper::mapToEmployeeDto)
+                .collect(Collectors.toList());
     }
 
 
@@ -39,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void updateEmployee(EmployeeDto employeeDto) {
-        employeeRepository.updateEmployee(employeeDto);
+        employeeRepository.updateEmployee(employeeMapper.mapToEmployee(employeeDto));
 
     }
 
