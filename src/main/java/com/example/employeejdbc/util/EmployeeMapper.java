@@ -28,11 +28,4 @@ public class EmployeeMapper {
                 .build();
 
     }
-
-
-    //rest rest rest !!!!
-    //dokonczyć mapowanie
-    //jutro zadanie z jsonem
-
-
 }

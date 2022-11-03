@@ -25,33 +25,28 @@ public class Controller {
     }
 
     @PostMapping("/employee")
-    public ResponseEntity<Void> postEmployee(@RequestBody final EmployeeDto employeeDto){
-        log.info("post /employee with body: {}",employeeDto);
+    public ResponseEntity<Void> postEmployee(@RequestBody final EmployeeDto employeeDto) {
+        //log.info("post /employee with body: {}", employeeDto);
         requestValidator.validateInsert(employeeDto);
         employeeService.postEmployee(employeeDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
     @GetMapping("/employee/{id}")
-    public ResponseEntity<EmployeeDto> getEmployee(@PathVariable final long id){
-        log.info("get /employee/{}",id);
+    public ResponseEntity<EmployeeDto> getEmployee(@PathVariable final long id) {
+        log.info("get /employee/{}", id);
         return ResponseEntity.ok(employeeService.getEmployee(id));
     }
+
     @DeleteMapping("/employee/{id}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable final long id){
+    public ResponseEntity<Void> deleteEmployee(@PathVariable final long id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/employee")
-    public ResponseEntity<Void> updateEmployee(@RequestBody final EmployeeDto employeeDto){
+    public ResponseEntity<Void> updateEmployee(@RequestBody final EmployeeDto employeeDto) {
         employeeService.updateEmployee(employeeDto);
         return ResponseEntity.ok().build();
-// TODO: 27.10.2022 file not found exception
     }
-// TODO: 27.10.2022 logowanie
-    //validacja
-
 }
-
-
-
