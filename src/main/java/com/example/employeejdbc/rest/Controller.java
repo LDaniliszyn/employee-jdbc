@@ -46,6 +46,7 @@ public class Controller {
 
     @PutMapping("/employee")
     public ResponseEntity<Void> updateEmployee(@RequestBody final EmployeeDto employeeDto) {
+        requestValidator.validateUpdate(employeeDto);
         employeeService.updateEmployee(employeeDto);
         return ResponseEntity.ok().build();
     }

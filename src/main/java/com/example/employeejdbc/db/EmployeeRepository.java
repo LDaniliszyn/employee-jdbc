@@ -25,25 +25,35 @@ public class EmployeeRepository {
 
     public Employee findEmployeeById(Long id) {
         final String insertSql = "SELECT * FROM EMPLOYEE WHERE employee_id = ?";
-        return jdbcTemplate.queryForObject(insertSql, employeeRowMapper, id);
+        Employee employee = jdbcTemplate.queryForObject(insertSql, employeeRowMapper, id);
+        if (employee == null){
+            throw new NotFoundException("not found");
+        }
+        return employee;
     }
 
     public void updateEmployee(Employee employee) {
         final String updateQuery = "UPDATE EMPLOYEE SET FIRST_NAME = ?, LAST_NAME = ?,DEPARTMENT_ID = ?, JOB_TITLE = ?  WHERE EMPLOYEE_ID = ?";
-        if (jdbcTemplate.update(updateQuery, employee.getFirstName(), employee.getLastName(), employee.getDepartmentId(), employee.getJobTitle(), employee.getEmployeeId()) != 1) {
+        int updatedCount = jdbcTemplate.update(updateQuery, employee.getFirstName(), employee.getLastName(), employee.getDepartmentId(), employee.getJobTitle(), employee.getEmployeeId());
+        if (updatedCount == 0) {
             throw new NotFoundException("not found");
         }
-        jdbcTemplate.update(updateQuery, employee.getFirstName(), employee.getLastName(), employee.getDepartmentId(), employee.getJobTitle(), employee.getEmployeeId());
     }
 
     public void deleteEmployee(Long id) {
         final String insertSql = "DELETE FROM EMPLOYEE WHERE employee_id = ?";
-        jdbcTemplate.update(insertSql, id);
+        int deletedCount = jdbcTemplate.update(insertSql, id);
+        if (deletedCount == 0 ){
+            throw new NotFoundException("not found");
+        }
     }
 
     public List<Employee> getEmployees() {
         final String insertSql = "SELECT employee_id, first_name, last_name, department_id, job_title FROM public.employee;";
         List<Employee> employee = jdbcTemplate.query(insertSql, employeeRowMapper);
+        if (employee.isEmpty()){
+            throw new NotFoundException("not found");
+        }
         return employee;
     }
 }

@@ -9,13 +9,12 @@ public class EmployeeMapper {
 
     public Employee mapToEmployee(final EmployeeDto employeeDto){
         return Employee.builder()
-                .employeeId(employeeDto.getEmployeeId())
+                .employeeId(employeeDto.getEmployeeId() == null ? 0L : employeeDto.getEmployeeId())
                 .departmentId(employeeDto.getDepartmentId())
                 .firstName(employeeDto.getFirstName())
                 .lastName(employeeDto.getLastName())
                 .jobTitle(employeeDto.getJobTitle())
                 .build();
-
 
     }
     public EmployeeDto mapToEmployeeDto(final Employee employee){

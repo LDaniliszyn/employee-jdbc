@@ -27,14 +27,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto getEmployee(long id) {
         Employee employeeById = employeeRepository.findEmployeeById(id);
-        EmployeeDto employeeDto = employeeMapper.mapToEmployeeDto(employeeById);
-        return employeeDto;
+        return employeeMapper.mapToEmployeeDto(employeeById);
     }
+    // TODO: 03.11.2022 mockito then throw sprawdzić czy dostanie wyjatek
+
 
     @Override
     public void postEmployee(EmployeeDto employeeDto) {
         employeeRepository.insertEmployee(employeeMapper.mapToEmployee(employeeDto));
-
     }
 
     @Override
