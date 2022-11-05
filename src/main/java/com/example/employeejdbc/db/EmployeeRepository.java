@@ -46,6 +46,10 @@ public class EmployeeRepository {
         if (deletedCount == 0 ){
             throw new NotFoundException("not found");
         }
+        // TODO: 05.11.2022
+        //given when jdbcTemplate.update then return 0
+        //when deleteEmployee
+        //then czy wyjatek
     }
 
     public List<Employee> getEmployees() {
@@ -55,5 +59,6 @@ public class EmployeeRepository {
             throw new NotFoundException("not found");
         }
         return employee;
+
     }
 }

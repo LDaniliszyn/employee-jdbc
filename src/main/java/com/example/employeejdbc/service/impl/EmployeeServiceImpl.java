@@ -34,13 +34,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void postEmployee(EmployeeDto employeeDto) {
+        //metode sprawdzajacą wiek?
         employeeRepository.insertEmployee(employeeMapper.mapToEmployee(employeeDto));
+        // TODO: 05.11.2022 sprawdzić czy sie wykona jeden raz przez verify  when większy niż 18
+        // TODO: 05.11.2022 napiszać wyjątejątek jak za mały wiek
+        // TODO: 05.11.2022  sprawdzić czy jak młodszy to czy da wyjatek
+        // TODO: 05.11.2022
+
+        //given employ 18+
+        //when postEmployee()
+        //then verify employRepo 1 times
     }
+
 
     @Override
     public void updateEmployee(EmployeeDto employeeDto) {
         employeeRepository.updateEmployee(employeeMapper.mapToEmployee(employeeDto));
-
     }
 
     @Override
