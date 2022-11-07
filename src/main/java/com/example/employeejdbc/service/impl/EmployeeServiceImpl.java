@@ -5,10 +5,14 @@ import com.example.employeejdbc.db.model.Employee;
 import com.example.employeejdbc.rest.dto.EmployeeDto;
 import com.example.employeejdbc.service.EmployeeService;
 import com.example.employeejdbc.util.EmployeeMapper;
+import com.example.employeejdbc.util.RequestValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.type.filter.RegexPatternTypeFilter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +20,8 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
+
+    private final RequestValidator requestValidator;
 
     public List<EmployeeDto> getEmployees() {
         return employeeRepository.getEmployees().stream()
@@ -29,21 +35,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employeeById = employeeRepository.findEmployeeById(id);
         return employeeMapper.mapToEmployeeDto(employeeById);
     }
-    // TODO: 03.11.2022 mockito then throw sprawdzić czy dostanie wyjatek
+    //
 
 
     @Override
     public void postEmployee(EmployeeDto employeeDto) {
-        //metode sprawdzajacą wiek?
-        employeeRepository.insertEmployee(employeeMapper.mapToEmployee(employeeDto));
-        // TODO: 05.11.2022 sprawdzić czy sie wykona jeden raz przez verify  when większy niż 18
-        // TODO: 05.11.2022 napiszać wyjątejątek jak za mały wiek
-        // TODO: 05.11.2022  sprawdzić czy jak młodszy to czy da wyjatek
-        // TODO: 05.11.2022
-
-        //given employ 18+
-        //when postEmployee()
-        //then verify employRepo 1 times
+        if (requestValidator.checkIfNameContainsOnlyLetters(employeeDto)){
+            employeeRepository.insertEmployee(employeeMapper.mapToEmployee(employeeDto));
+        }
     }
 
 

@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 @Component
 @Slf4j
 @RequiredArgsConstructor
 
 public class RequestValidator {
-
 
     public void validateInsert(EmployeeDto employeeDto) {
         if (StringUtils.isBlank(employeeDto.getFirstName()) || StringUtils.isBlank(employeeDto.getLastName()) || StringUtils.isBlank(employeeDto.getJobTitle())) {
@@ -23,7 +23,6 @@ public class RequestValidator {
             throw new BadRequestException("department id must be greater than 0");
         }
     }
-
     public void validateUpdate(EmployeeDto employeeDto) {
         if (StringUtils.isBlank(employeeDto.getFirstName()) || StringUtils.isBlank(employeeDto.getLastName()) || StringUtils.isBlank(employeeDto.getJobTitle())) {
             log.error("empty fields");
@@ -36,9 +35,12 @@ public class RequestValidator {
             throw new BadRequestException("id must be greater than 0");
         }
     }
-
-    // TODO: 03.11.2022 testy jesli nie bedzie jakiegoś pola np
-
-
-
+    public boolean checkIfNameContainsOnlyLetters(EmployeeDto employeeDto) {
+        Pattern pattern = Pattern.compile("[A-Za-z]+");
+        Matcher matcher = pattern.matcher(employeeDto.getFirstName());
+        if (!matcher.matches()) {
+            throw new RuntimeException("Wrong name");
+        }
+        return true; //void
+    }
 }

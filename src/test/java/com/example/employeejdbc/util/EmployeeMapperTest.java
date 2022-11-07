@@ -10,7 +10,7 @@ class EmployeeMapperTest {
     EmployeeMapper employeeMapper = new EmployeeMapper();
 
     @Test
-    public void shouldCorrectlyMapDto(){
+    void shouldCorrectlyMapDto(){
         //given
         EmployeeDto employeeDto = EmployeeDto.builder()
                 .departmentId(2L)
