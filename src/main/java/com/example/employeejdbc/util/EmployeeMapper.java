@@ -15,8 +15,8 @@ public class EmployeeMapper {
                 .lastName(employeeDto.getLastName())
                 .jobTitle(employeeDto.getJobTitle())
                 .build();
-
     }
+
     public EmployeeDto mapToEmployeeDto(final Employee employee){
         return EmployeeDto.builder()
                 .employeeId(employee.getEmployeeId())
@@ -25,6 +25,5 @@ public class EmployeeMapper {
                 .lastName(employee.getLastName())
                 .jobTitle(employee.getJobTitle())
                 .build();
-
     }
 }

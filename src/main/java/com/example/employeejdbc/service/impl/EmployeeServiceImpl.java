@@ -35,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employeeById = employeeRepository.findEmployeeById(id);
         return employeeMapper.mapToEmployeeDto(employeeById);
     }
-    //
+    // TODO: 07.11.2022 jakos to potestowac byle by bylo.....
 
 
     @Override

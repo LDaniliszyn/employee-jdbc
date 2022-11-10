@@ -10,7 +10,7 @@ class EmployeeMapperTest {
     EmployeeMapper employeeMapper = new EmployeeMapper();
 
     @Test
-    void shouldCorrectlyMapDto(){
+    void shouldCorrectlyMapDto() {
         //given
         EmployeeDto employeeDto = EmployeeDto.builder()
                 .departmentId(2L)
@@ -31,8 +31,36 @@ class EmployeeMapperTest {
         //when
         Employee result = assertDoesNotThrow(() -> employeeMapper.mapToEmployee(employeeDto));
         //then
-        assertEquals(employee,result);
+        assertEquals(employee, result);
     }
-    // TODO: 03.11.2022 test map t employee
+
+
+    @Test
+    void shouldCorrectlyMapEmployee() {
+        //given
+        Employee employee = Employee.builder()
+                .departmentId(2L)
+                .jobTitle("praca")
+                .employeeId(7L)
+                .firstName("ala")
+                .lastName("kowalska")
+                .build();
+
+        EmployeeDto employeeDto = EmployeeDto.builder()
+                .departmentId(2L)
+                .jobTitle("praca")
+                .employeeId(7L)
+                .firstName("ala")
+                .lastName("kowalska")
+                .build();
+
+        //when
+        EmployeeDto resoulteEmployeeDto = assertDoesNotThrow(() -> employeeMapper.mapToEmployeeDto(employee));
+
+        //then
+        assertEquals(employeeDto,resoulteEmployeeDto);
+
+    }
+
 
 }
