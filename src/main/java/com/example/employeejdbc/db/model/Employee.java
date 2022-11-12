@@ -15,5 +15,4 @@ public class Employee  {
     private String lastName;
     private long departmentId;
     private String jobTitle;
-
 }

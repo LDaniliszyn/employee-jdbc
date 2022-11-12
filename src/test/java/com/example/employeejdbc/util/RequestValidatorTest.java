@@ -4,6 +4,9 @@ import com.example.employeejdbc.rest.dto.EmployeeDto;
 import com.example.employeejdbc.service.exceptions.BadRequestException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -79,13 +82,15 @@ class RequestValidatorTest {
 
 
 
-    @Test
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {"  ", "\t", "\n"})
     @DisplayName("should Throw Bad Request Exception When Empty Fields Update")
-    void shouldThrowBadRequestExceptionWhenEmptyFieldsUpdate() {
+    void shouldThrowBadRequestExceptionWhenEmptyFieldsUpdate(String input) {
         //given
         EmployeeDto employeeDto = EmployeeDto.builder()
                 .departmentId(2L)
-                .jobTitle(null)
+                .jobTitle(input)
                 .employeeId(7L)
                 .firstName("ala")
                 .lastName("kowalska")
@@ -96,9 +101,10 @@ class RequestValidatorTest {
         assertEquals("empty fields", exception.getMessage());
     }
 
+
     @Test
     @DisplayName("should Does Not Throw Bad Request Exception When No Empty Fields Update")
-    void shouldDoesNotThrowBadRequestExceptionWhenNoEmptyFieldsUpdate() {
+    void shouldThrowBadRequestExceptionWhenNoEmptyFieldsUpdate() {
         //given
         EmployeeDto employeeDto = EmployeeDto.builder()
                 .departmentId(2L)
