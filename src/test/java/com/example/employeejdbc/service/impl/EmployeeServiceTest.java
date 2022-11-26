@@ -65,7 +65,6 @@ class EmployeeServiceTest {
         List<EmployeeDto> employeeDtos = assertDoesNotThrow(() -> employeeService.getEmployees());
         //then
         assertEquals(2,employeeDtos.size());
-        // TODO: 03.11.2022
     }
 
     @Test

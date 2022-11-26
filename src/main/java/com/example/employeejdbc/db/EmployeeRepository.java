@@ -18,6 +18,10 @@ public class EmployeeRepository {
     private final EmployeeRowMapper employeeRowMapper;
 
 
+    public void clearDatabase(){
+        final String insertSql = "DELETE FROM public.employee";
+        jdbcTemplate.update(insertSql);
+    }
     public void insertEmployee(Employee employee) {
         final String insertSql = "INSERT INTO EMPLOYEE (FIRST_NAME,LAST_NAME,DEPARTMENT_ID,JOB_TITLE)VALUES(?,?,?,?)";
         jdbcTemplate.update(insertSql, employee.getFirstName(), employee.getLastName(), employee.getDepartmentId(), employee.getJobTitle());
@@ -46,14 +50,10 @@ public class EmployeeRepository {
         if (deletedCount == 0 ){
             throw new NotFoundException("not found");
         }
-        // TODO: 05.11.2022
-        //given when jdbcTemplate.update then return 0
-        //when deleteEmployee
-        //then czy wyjatek
     }
 
     public List<Employee> getEmployees() {
-        final String insertSql = "SELECT employee_id, first_name, last_name, department_id, job_title FROM public.employee;";
+        final String insertSql = "SELECT employee_id, first_name, last_name, department_id, job_title FROM employee;";
         List<Employee> employee = jdbcTemplate.query(insertSql, employeeRowMapper);
         if (employee.isEmpty()){
             throw new NotFoundException("not found");

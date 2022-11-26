@@ -18,6 +18,11 @@ import java.util.List;
 public class Controller {
     private final EmployeeService employeeService;
     private final RequestValidator requestValidator;
+    @DeleteMapping("/employee/clear")
+    public ResponseEntity<Void> clearDatabase(){
+        employeeService.clearDatabase();
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/employee")
     public ResponseEntity<List<EmployeeDto>> getEmployees() {

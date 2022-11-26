@@ -11,4 +11,5 @@ public interface EmployeeService {
     void postEmployee(EmployeeDto employeeDto);
     void updateEmployee(EmployeeDto employeeDto);
     void deleteEmployee(long id);
+    void clearDatabase();
 }

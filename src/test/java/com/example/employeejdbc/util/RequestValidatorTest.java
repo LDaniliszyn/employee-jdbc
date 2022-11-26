@@ -79,9 +79,6 @@ class RequestValidatorTest {
         //then
     }
 
-
-
-
     @ParameterizedTest
     @NullAndEmptySource
     @ValueSource(strings = {"  ", "\t", "\n"})
@@ -100,7 +97,6 @@ class RequestValidatorTest {
         //then
         assertEquals("empty fields", exception.getMessage());
     }
-
 
     @Test
     @DisplayName("should Does Not Throw Bad Request Exception When No Empty Fields Update")
@@ -183,9 +179,6 @@ class RequestValidatorTest {
         assertDoesNotThrow(() ->requestValidator.validateUpdate(employeeDto));
         //then
     }
-
-
-
 
     @Test
     @DisplayName("should Throw Runtime Exception When Wrong Name")
