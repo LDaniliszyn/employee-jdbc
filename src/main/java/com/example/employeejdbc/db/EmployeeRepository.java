@@ -5,6 +5,9 @@ import com.example.employeejdbc.rest.dto.EmployeeDto;
 import com.example.employeejdbc.service.exceptions.NotFoundException;
 import com.example.employeejdbc.util.EmployeeRowMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -29,10 +32,16 @@ public class EmployeeRepository {
 
     public Employee findEmployeeById(Long id) {
         final String insertSql = "SELECT * FROM EMPLOYEE WHERE employee_id = ?";
+
+//        try {
+//            Employee employee = jdbcTemplate.queryForObject(insertSql, employeeRowMapper, id);
+//            return employee;
+//
+//        }catch (EmptyResultDataAccessException e){
+//            throw new NotFoundException("Not found");
+//        }
+
         Employee employee = jdbcTemplate.queryForObject(insertSql, employeeRowMapper, id);
-        if (employee == null){
-            throw new NotFoundException("not found");
-        }
         return employee;
     }
 
